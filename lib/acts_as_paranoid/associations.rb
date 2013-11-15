@@ -43,7 +43,7 @@ module ActsAsParanoid
                 association = association(:#{target})
                 return nil if association.options[:polymorphic] && association.klass.nil?
                 return #{target}_without_unscoped(*args) unless association.klass.paranoid?
-                association.klass.with_deleted.scoping { #{target}_without_unscoped(*args) }
+                association.klass.with_deleted.scoping { #{target}_without_unscoped(*args) #Not returning deleted rows}
               end
               alias_method_chain :#{target}, :unscoped
             RUBY
